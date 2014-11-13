@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- <color name="topbar">#2ebefe</color> -->
+    <color name="topbar">#CAD6B0</color>
+    <color name="white">#ffffff</color>
+    <color name="background">#eeeeee</color>
+    <color name="txtGray">#888888</color>
+    <color name="black">#000000</color>
+    <color name="wechatGreen">#45c01a</color>
+</resources>

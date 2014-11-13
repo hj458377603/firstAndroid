@@ -1,0 +1,33 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" 
+    >
+
+    <com.potato.gamevideo.view.slidingmenu.BaseSlidingMenu
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <include layout="@layout/left_menu" >
+            </include>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white" 
+                android:orientation="vertical">
+
+             <include layout="@layout/topbar" />
+             <include layout="@layout/video_category"/>
+            </LinearLayout>
+        </LinearLayout>
+    </com.potato.gamevideo.view.slidingmenu.BaseSlidingMenu>
+
+</RelativeLayout>

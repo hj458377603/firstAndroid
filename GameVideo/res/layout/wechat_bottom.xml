@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/background"
+    android:gravity="bottom"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp" >
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/img_wechat_bottom_1"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/wechat_bottom_1_1" />
+
+        <TextView
+            android:id="@+id/txt_wechat_bottom_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_wechat_bottom_1"
+            android:gravity="center"
+            android:textColor="@color/wechatGreen"
+            android:text="@string/wechat" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/img_wechat_bottom_2"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/wechat_bottom_2_0" />
+
+        <TextView
+            android:id="@+id/txt_wechat_bottom_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_wechat_bottom_2"
+            android:gravity="center"
+            android:text="@string/contacts" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/img_wechat_bottom_3"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/wechat_bottom_3_0" />
+
+        <TextView
+            android:id="@+id/txt_wechat_bottom_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_wechat_bottom_3"
+            android:gravity="center"
+            android:text="@string/news" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/img_wechat_bottom_4"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/wechat_bottom_4_0" />
+
+        <TextView
+            android:id="@+id/txt_wechat_bottom_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_wechat_bottom_4"
+            android:gravity="center"
+            android:text="@string/me" />
+    </RelativeLayout>
+
+</LinearLayout>
