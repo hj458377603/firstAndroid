@@ -1,24 +1,35 @@
 package com.potato.gamevideo.view.slidingmenu;
 
+import com.nineoldandroids.view.ViewHelper;
+
+import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.provider.SyncStateContract.Helpers;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.ViewAnimator;
 
 public class BaseSlidingMenu extends HorizontalScrollView {
+
 	private LinearLayout mWrapper;
 	private ViewGroup mMenu;
 	private ViewGroup mContent;
 	private int mScreenWidth;
+	private int mScreenHeight;
 	private int mMenuRightPadding = 50;
 	private int mMenuWidth;
 	private boolean measured = false;
+	private boolean isOpen;
 
 	public BaseSlidingMenu(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -29,10 +40,11 @@ public class BaseSlidingMenu extends HorizontalScrollView {
 		DisplayMetrics outMerMetrics = new DisplayMetrics();
 		wm.getDefaultDisplay().getMetrics(outMerMetrics);
 		mScreenWidth = outMerMetrics.widthPixels;
+		mScreenHeight = outMerMetrics.heightPixels;
 
 		// 将50dp转化为50px
 		mMenuRightPadding = (int) TypedValue.applyDimension(
-				TypedValue.COMPLEX_UNIT_DIP, 50, context.getResources()
+				TypedValue.COMPLEX_UNIT_DIP, 80, context.getResources()
 						.getDisplayMetrics());
 	}
 
@@ -82,10 +94,12 @@ public class BaseSlidingMenu extends HorizontalScrollView {
 				Log.d("scroll", "hide");
 				// 隐藏菜单栏
 				this.smoothScrollTo(mMenuWidth, 0);
+				isOpen = false;
 			} else {
 				Log.d("scroll", "show");
 				// 显示菜单栏
 				this.smoothScrollTo(0, 0);
+				isOpen = true;
 			}
 			return true;
 
@@ -97,6 +111,58 @@ public class BaseSlidingMenu extends HorizontalScrollView {
 
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
+		switch (ev.getAction()) {
+		case MotionEvent.ACTION_MOVE:
+			return true;
+
+		default:
+			break;
+		}
 		return false;
+	}
+
+	public void OpenMenu() {
+		if (isOpen) {
+			return;
+		}
+		this.smoothScrollTo(0, 0);
+		isOpen = true;
+	}
+
+	public void HideMenu() {
+		if (!isOpen) {
+			return;
+		}
+		this.smoothScrollTo(mMenuWidth, 0);
+		isOpen = false;
+	}
+
+	public void ToggleMenu() {
+		if (isOpen) {
+			HideMenu();
+		} else {
+			OpenMenu();
+		}
+	}
+
+	@Override
+	protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+		// TODO Auto-generated method stub
+		super.onScrollChanged(l, t, oldl, oldt);
+
+		// 1 ~ 0
+		float offset = (float) l / mMenuWidth;
+		// ViewHelper.setTranslationX(mMenu, l);
+//		ViewHelper.setAlpha(mMenu, 1 - offset);
+		ViewHelper.setPivotX(mContent, 0);
+		ViewHelper.setPivotY(mContent, mScreenHeight / 2f);
+		ViewHelper.setScaleX(mContent, 0.7f + 0.3f * offset);
+		ViewHelper.setScaleY(mContent, 0.7f + 0.3f * offset);
+		ViewHelper.setTranslationX(mMenu, (0.8f + 0.2f * (1 - offset)) * l);
+		ViewHelper.setScaleX(mMenu, 0.8f + 0.2f * (1 - offset));
+		ViewHelper.setScaleY(mMenu, 0.8f + 0.2f * (1 - offset));
+		ViewHelper.setPivotX(mMenu, 0);
+		ViewHelper.setPivotY(mMenu, mScreenHeight / 2f);
+		ViewHelper.setRotationY(mMenu,330f + 30f *(1 - offset));
 	}
 }

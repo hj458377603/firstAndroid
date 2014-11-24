@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -89,8 +90,7 @@ public class WeChatActivity extends FragmentActivity {
 					break;
 				case 1:
 					contactImage.setImageResource(R.drawable.wechat_bottom_2_1);
-					contactTxt
-							.setTextColor(txtColor);
+					contactTxt.setTextColor(txtColor);
 					break;
 				case 2:
 					newsImage.setImageResource(R.drawable.wechat_bottom_3_1);
@@ -107,7 +107,7 @@ public class WeChatActivity extends FragmentActivity {
 
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
-
+				Log.d("scroll", arg0+"|"+arg1+"|"+arg2);
 			}
 
 			@Override

@@ -11,7 +11,8 @@
         android:layout_height="46dp"
         android:contentDescription="@string/app_name"
         android:padding="2dp"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo" 
+        android:onClick="toggleMenu"/>
 
     <TextView
         android:layout_width="wrap_content"

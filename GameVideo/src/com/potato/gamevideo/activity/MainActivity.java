@@ -7,8 +7,17 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.RelativeLayout;
@@ -22,6 +31,7 @@ import com.potato.gamevideo.entity.video.lol.duowan.VideoCategory;
 import com.potato.gamevideo.service.app.lol.duowan.VideoService;
 import com.potato.gamevideo.utils.ICallback;
 import com.potato.gamevideo.utils.VolleyApplication;
+import com.potato.gamevideo.view.slidingmenu.BaseSlidingMenu;
 
 public class MainActivity extends Activity implements OnClickListener {
 	private VideoService videoService = new VideoService();
@@ -30,15 +40,18 @@ public class MainActivity extends Activity implements OnClickListener {
 	private VideoCategoryAdapter adapter = null;
 	private ProgressDialog dialog;
 	private RelativeLayout item1 = null;
+	private BaseSlidingMenu menu = null;
 
 	@SuppressLint("InlinedApi") @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		listView = (ExpandableListView) findViewById(R.id.pull_to_refresh_listview);
+		menu = (BaseSlidingMenu) findViewById(R.id.slidingMenu);
 		item1 = (RelativeLayout) findViewById(R.id.item1);
 		item1.setOnClickListener(this);
-
+		
+		
 		listView.setOnChildClickListener(new OnChildClickListener() {
 
 			@Override
@@ -54,28 +67,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				return true;
 			}
 		});
-		// listView.setMode(Mode.PULL_FROM_START);
-		// listView.setOnRefreshListener(new
-		// OnRefreshListener<ExpandableListView>() {
-		// @Override
-		// public void onRefresh(PullToRefreshBase<ExpandableListView>
-		// refreshView) {
-		//
-		// // 资讯列表刷新
-		// Log.d("pull", "refresh");
-		// String label = DateUtils.formatDateTime(
-		// getApplicationContext(),
-		// System.currentTimeMillis(),
-		// DateUtils.FORMAT_SHOW_TIME
-		// | DateUtils.FORMAT_SHOW_DATE
-		// | DateUtils.FORMAT_ABBREV_ALL);
-		//
-		// // 更新上次刷新时间
-		// refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(
-		// label);
-		// getVideoCatelogs();
-		// }
-		// });
+		
 
 		dialog = new ProgressDialog(this,
 				ProgressDialog.THEME_DEVICE_DEFAULT_LIGHT);
@@ -126,5 +118,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 		}
 
+	}
+	
+	public void toggleMenu(View v){
+		menu.ToggleMenu();
 	}
 }
