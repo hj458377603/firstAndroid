@@ -1,23 +1,17 @@
 package com.potato.gamevideo.view.slidingmenu;
 
-import com.nineoldandroids.view.ViewHelper;
-
-import android.animation.ValueAnimator;
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.provider.SyncStateContract.Helpers;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-import android.widget.ViewAnimator;
+
+import com.nineoldandroids.view.ViewHelper;
 
 public class BaseSlidingMenu extends HorizontalScrollView {
 
@@ -109,17 +103,17 @@ public class BaseSlidingMenu extends HorizontalScrollView {
 		return super.onTouchEvent(ev);
 	}
 
-	@Override
-	public boolean onInterceptTouchEvent(MotionEvent ev) {
-		switch (ev.getAction()) {
-		case MotionEvent.ACTION_MOVE:
-			return true;
-
-		default:
-			break;
-		}
-		return false;
-	}
+//	@Override
+//	public boolean onInterceptTouchEvent(MotionEvent ev) {
+//		switch (ev.getAction()) {
+//		case MotionEvent.ACTION_MOVE:
+//			return true;
+//
+//		default:
+//			break;
+//		}
+//		return false;
+//	}
 
 	public void OpenMenu() {
 		if (isOpen) {

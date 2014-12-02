@@ -20,7 +20,7 @@ import com.potato.gamevideo.R;
 import com.potato.gamevideo.adapter.VideoSummaryListAdapter;
 import com.potato.gamevideo.entity.video.lol.duowan.VideoSummary;
 import com.potato.gamevideo.service.app.lol.duowan.VideoService;
-import com.potato.gamevideo.utils.ICallback;
+import com.potato.gamevideo.utils.IRequestCallback;
 import com.potato.gamevideo.utils.VolleyApplication;
 
 public class VideoSummaryListActivity extends Activity {
@@ -33,7 +33,8 @@ public class VideoSummaryListActivity extends Activity {
 	private int pageIndex = 1;
 	private List<VideoSummary> videoList;
 
-	@SuppressLint("InlinedApi") @Override
+	@SuppressLint("InlinedApi")
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_video_list);
@@ -71,7 +72,8 @@ public class VideoSummaryListActivity extends Activity {
 			}
 		});
 
-		dialog = new ProgressDialog(this, ProgressDialog.THEME_DEVICE_DEFAULT_LIGHT);
+		dialog = new ProgressDialog(this,
+				ProgressDialog.THEME_DEVICE_DEFAULT_LIGHT);
 		dialog.setMessage("加载中...");
 		dialog.show();
 	}
@@ -84,13 +86,17 @@ public class VideoSummaryListActivity extends Activity {
 		if (!isLoading) {
 			isLoading = true;
 			videoService.getVideoSummaryList(
-					new ICallback<List<VideoSummary>>() {
-						// 成功
-						@Override
-						public void doCallback(List<VideoSummary> t) {
+					new IRequestCallback<List<VideoSummary>>() {
 
-							// 如果是首页
+						/**
+						 * 成功
+						 * 
+						 * @param t
+						 */
+						@Override
+						public void onSuccess(List<VideoSummary> t) {
 							if (pageIndex == 1) {
+								// 如果是首页
 								videoList = t;
 								adapter = new VideoSummaryListAdapter(
 										VideoSummaryListActivity.this,
@@ -98,12 +104,12 @@ public class VideoSummaryListActivity extends Activity {
 								listView.setAdapter(adapter);
 								dialog.hide();
 							} else {
-								if (t != null&&t.size()>0) {
+								if (t != null && t.size() > 0) {
 									videoList.addAll(t);
-								}else
-								{
+								} else {
 									VideoSummaryListActivity.this.pageIndex--;
-									Toast.makeText(VideoSummaryListActivity.this,
+									Toast.makeText(
+											VideoSummaryListActivity.this,
 											"没有更多了", Toast.LENGTH_SHORT).show();
 								}
 							}
@@ -114,11 +120,9 @@ public class VideoSummaryListActivity extends Activity {
 							listView.onRefreshComplete();
 							dialog.hide();
 						}
-					},
-					new ICallback<VolleyError>() {
-						// 失败
+
 						@Override
-						public void doCallback(VolleyError t) {
+						public void onFail(VolleyError error) {
 							Toast.makeText(VideoSummaryListActivity.this,
 									"加载失败", Toast.LENGTH_SHORT).show();
 							listView.onRefreshComplete();

@@ -7,17 +7,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Display;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
-import android.view.animation.AnimationUtils;
-import android.view.animation.RotateAnimation;
-import android.view.animation.ScaleAnimation;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.RelativeLayout;
@@ -29,7 +20,7 @@ import com.potato.gamevideo.activity.lol.VideoSummaryListActivity;
 import com.potato.gamevideo.adapter.VideoCategoryAdapter;
 import com.potato.gamevideo.entity.video.lol.duowan.VideoCategory;
 import com.potato.gamevideo.service.app.lol.duowan.VideoService;
-import com.potato.gamevideo.utils.ICallback;
+import com.potato.gamevideo.utils.IRequestCallback;
 import com.potato.gamevideo.utils.VolleyApplication;
 import com.potato.gamevideo.view.slidingmenu.BaseSlidingMenu;
 
@@ -42,7 +33,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	private RelativeLayout item1 = null;
 	private BaseSlidingMenu menu = null;
 
-	@SuppressLint("InlinedApi") @Override
+	@SuppressLint("InlinedApi")
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
@@ -50,8 +42,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		menu = (BaseSlidingMenu) findViewById(R.id.slidingMenu);
 		item1 = (RelativeLayout) findViewById(R.id.item1);
 		item1.setOnClickListener(this);
-		
-		
+
 		listView.setOnChildClickListener(new OnChildClickListener() {
 
 			@Override
@@ -67,7 +58,6 @@ public class MainActivity extends Activity implements OnClickListener {
 				return true;
 			}
 		});
-		
 
 		dialog = new ProgressDialog(this,
 				ProgressDialog.THEME_DEVICE_DEFAULT_LIGHT);
@@ -83,10 +73,16 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (!isLoading) {
 			isLoading = true;
 			videoService.getVideoCategories(
-					new ICallback<List<VideoCategory>>() {
-						// ≥…π¶
+					new IRequestCallback<List<VideoCategory>>() {
 						@Override
-						public void doCallback(List<VideoCategory> t) {
+						public void onFail(VolleyError error) {
+							Toast.makeText(MainActivity.this, "º”‘ÿ ß∞‹",
+									Toast.LENGTH_SHORT).show();
+							isLoading = false;
+						}
+
+						@Override
+						public void onSuccess(List<VideoCategory> t) {
 							adapter = new VideoCategoryAdapter(
 									MainActivity.this, t, listView);
 							listView.setAdapter(adapter);
@@ -94,14 +90,6 @@ public class MainActivity extends Activity implements OnClickListener {
 							listView.expandGroup(0);
 							isLoading = false;
 							dialog.hide();
-						}
-					}, new ICallback<VolleyError>() {
-						//  ß∞‹
-						@Override
-						public void doCallback(VolleyError t) {
-							Toast.makeText(MainActivity.this, "º”‘ÿ ß∞‹",
-									Toast.LENGTH_SHORT).show();
-							isLoading = false;
 						}
 					}, VolleyApplication.getInstance().getRequestQueue());
 		}
@@ -111,16 +99,15 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.item1:
-			//Toast.makeText(this, "item1", Toast.LENGTH_SHORT).show();
-			Intent intent=new Intent();
+			Intent intent = new Intent();
 			intent.setClass(this, WeChatActivity.class);
 			startActivity(intent);
 			break;
 		}
 
 	}
-	
-	public void toggleMenu(View v){
+
+	public void toggleMenu(View v) {
 		menu.ToggleMenu();
 	}
 }

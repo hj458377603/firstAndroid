@@ -11,24 +11,44 @@ import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.potato.gamevideo.utils.IRequestCallback;
 
 public class GsonRequest<T> extends Request<T> {
-	private Gson mGson;
+	private Gson mGson = new Gson();
 	private final Listener<T> mListener;
 	private TypeToken<T> mTypeToken;
+	private IRequestCallback<T> requestCallback;
 
-	public GsonRequest(int method, String url, TypeToken<T> typeToken,
-			Listener<T> listener, ErrorListener errorListener) {
+	private GsonRequest(int method, String url, ErrorListener errorListener,
+			IRequestCallback<T> requestCallback, TypeToken<T> typeToken) {
 		super(method, url, errorListener);
-		mGson = new Gson();
-		mListener = listener;
+		mListener = initListener();
 		mTypeToken = typeToken;
+		this.requestCallback = requestCallback;
 	}
 
-	public GsonRequest(String url, TypeToken<T> clazz, Listener<T> listener,
-			ErrorListener errorListener) {
-		this(Method.GET, url, clazz, listener, errorListener);
+	public GsonRequest(int method, String url,
+			IRequestCallback<T> requestCallback, ErrorListener errorListener,
+			TypeToken<T> typeToken) {
+		this(method, url, errorListener, requestCallback, typeToken);
 	}
+
+	private Listener<T> initListener() {
+		return new Response.Listener<T>() {
+			@Override
+			public void onResponse(T t) {
+				// callback UIÖ÷Ïß³Ì
+				if (requestCallback != null) {
+					requestCallback.onSuccess(t);
+				}
+			}
+		};
+	}
+
+//	private TypeToken<T> getTypeToke() {
+//		return new TypeToken<T>() {
+//		};
+//	}
 
 	@SuppressWarnings("unchecked")
 	@Override
