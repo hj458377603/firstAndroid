@@ -153,6 +153,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     public static final class color {
         public static final int background=0x7f080002;
         public static final int black=0x7f080004;
+        public static final int selectedGray=0x7f080006;
         /**  <color name="topbar">#2ebefe</color> 
          */
         public static final int topbar=0x7f080000;
@@ -193,17 +194,18 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int indicator_arrow=0x7f02000e;
         public static final int indicator_bg_bottom=0x7f02000f;
         public static final int indicator_bg_top=0x7f020010;
-        public static final int logo=0x7f020011;
-        public static final int menuback=0x7f020012;
-        public static final int play=0x7f020013;
-        public static final int wechat_bottom_1_0=0x7f020014;
-        public static final int wechat_bottom_1_1=0x7f020015;
-        public static final int wechat_bottom_2_0=0x7f020016;
-        public static final int wechat_bottom_2_1=0x7f020017;
-        public static final int wechat_bottom_3_0=0x7f020018;
-        public static final int wechat_bottom_3_1=0x7f020019;
-        public static final int wechat_bottom_4_0=0x7f02001a;
-        public static final int wechat_bottom_4_1=0x7f02001b;
+        public static final int item_selector=0x7f020011;
+        public static final int logo=0x7f020012;
+        public static final int menuback=0x7f020013;
+        public static final int play=0x7f020014;
+        public static final int wechat_bottom_1_0=0x7f020015;
+        public static final int wechat_bottom_1_1=0x7f020016;
+        public static final int wechat_bottom_2_0=0x7f020017;
+        public static final int wechat_bottom_2_1=0x7f020018;
+        public static final int wechat_bottom_3_0=0x7f020019;
+        public static final int wechat_bottom_3_1=0x7f02001a;
+        public static final int wechat_bottom_4_0=0x7f02001b;
+        public static final int wechat_bottom_4_1=0x7f02001c;
     }
     public static final class id {
         public static final int action_settings=0x7f05002c;

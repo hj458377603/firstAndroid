@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ExpandableListView;
@@ -32,6 +34,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	private ProgressDialog dialog;
 	private RelativeLayout item1 = null;
 	private BaseSlidingMenu menu = null;
+	private Handler exitHandler=null;
+	private boolean isExit=false;
 
 	@SuppressLint("InlinedApi")
 	@Override
@@ -42,7 +46,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		menu = (BaseSlidingMenu) findViewById(R.id.slidingMenu);
 		item1 = (RelativeLayout) findViewById(R.id.item1);
 		item1.setOnClickListener(this);
+		exitHandler=new Handler(){
 
+			@Override
+			public void handleMessage(Message msg) {
+				super.handleMessage(msg);
+				isExit=false;
+			}
+			
+		};
 		listView.setOnChildClickListener(new OnChildClickListener() {
 
 			@Override
@@ -105,6 +117,20 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 		}
 
+	}
+
+	
+	
+	@Override
+	public void onBackPressed() {
+		if(!isExit){
+			isExit=true;
+			Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+			exitHandler.sendEmptyMessageDelayed(0, 2000);
+		}else{
+			finish();
+            System.exit(0);
+		}
 	}
 
 	public void toggleMenu(View v) {

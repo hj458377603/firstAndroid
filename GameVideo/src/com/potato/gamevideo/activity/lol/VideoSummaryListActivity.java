@@ -108,9 +108,14 @@ public class VideoSummaryListActivity extends Activity {
 									videoList.addAll(t);
 								} else {
 									VideoSummaryListActivity.this.pageIndex--;
+									String errorMsg="没有更多了";
+									if(t==null)
+									{
+										errorMsg="网络异常，请稍后再试";
+									}
 									Toast.makeText(
 											VideoSummaryListActivity.this,
-											"没有更多了", Toast.LENGTH_SHORT).show();
+											errorMsg, Toast.LENGTH_SHORT).show();
 								}
 							}
 							adapter.notifyDataSetChanged();

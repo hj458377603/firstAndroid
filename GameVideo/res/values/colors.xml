@@ -7,4 +7,5 @@
     <color name="txtGray">#888888</color>
     <color name="black">#000000</color>
     <color name="wechatGreen">#45c01a</color>
+    <color name="selectedGray">#eeeeee</color>
 </resources>

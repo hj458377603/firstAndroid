@@ -60,4 +60,5 @@ public class VideoService extends BaseService {
 				initErrorListener(requestCallback), typeToken);
 		queue.add(gsonRequest);
 	}
+
 }
